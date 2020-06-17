@@ -180,27 +180,25 @@
 
             $('#editBtn').click(function (e) {
                 e.preventDefault();
-                var id_buku = $('#formedit').find('input[name="id"]').val();;
+                var id_buku = $('#formedit').find('input[name="id"]').val();
 
-                // $.ajax({
-                //     data: $('#formedit').serialize(),
-                //     url: "{{ url('/buku') }}" + '/' + id_buku,
-                //     type: "PATCH",
-                //     dataType: 'json',
-                //     success: function (data) {
-                //         table.draw();
-                //         $('#formtambah').trigger("reset");
-                //         $("[data-dismiss=modal]").trigger({
-                //             type: "click"
-                //         });
-                //     },
-                //     error: function (data) {
-                //         console.log('Error:', data);
-                //         $('#saveBtn').html('Save Changes');
-                //     }
-                // });
-
-                window.alert(id_buku);
+                $.ajax({
+                    data: $('#formedit').serialize(),
+                    url: "{{ url('/buku') }}" + '/' + id_buku,
+                    type: "PATCH",
+                    dataType: 'json',
+                    success: function (data) {
+                        table.draw();
+                        $('#formtambah').trigger("reset");
+                        $("[data-dismiss=modal]").trigger({
+                            type: "click"
+                        });
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                        $('#saveBtn').html('Save Changes');
+                    }
+                });
             });
 
         });
