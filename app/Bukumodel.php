@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Bukumodel extends Model
 {
     protected $table = 'books';
-    protected $fillable = ['title', 'author'];
+    protected $fillable = ['title', 'author', 'penerbit'];
 }

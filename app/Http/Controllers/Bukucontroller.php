@@ -87,7 +87,8 @@ class Bukucontroller extends Controller
     {
         Bukumodel::where('id', $bukumodel->id)->update([
             'title' => $request->title,
-            'author' => $request->author
+            'author' => $request->author,
+            'penerbit' => $request->penerbit
         ]);
 
         return response()->json(['success'=>'Book edit successfully.']);

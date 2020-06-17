@@ -25,6 +25,7 @@
                                 <th>No</th>
                                 <th>Title</th>
                                 <th>Author</th>
+                                <th>Penerbit</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -56,6 +57,10 @@
                                 <label for="exampleInputEmail1">Autor</label>
                                 <input type="text" class="form-control" name="author">
                             </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Penerbit</label>
+                                <input type="text" class="form-control" name="penerbit">
+                            </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" id="saveBtn" class="btn btn-primary">Simpan</button>
@@ -86,6 +91,10 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Autor</label>
                                 <input type="text" id="author" class="form-control" name="author">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Penerbit</label>
+                                <input type="text" id="penerbit" class="form-control" name="penerbit">
                             </div>
                     </div>
                     <div class="modal-footer">
@@ -138,6 +147,10 @@
                         name: 'author'
                     },
                     {
+                        data: 'penerbit',
+                        name: 'penerbit'
+                    },
+                    {
                         data: 'action',
                         name: 'action',
                         orderable: false,
@@ -174,7 +187,7 @@
                     $('#id_buku').val(book_id);
                     $('#title').val(data.title);
                     $('#author').val(data.author);
-                    $('#editBtn').attr('data-id', data.id);
+                    $('#penerbit').val(data.penerbit);
                 })
             });
 
