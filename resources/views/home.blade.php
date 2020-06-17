@@ -174,7 +174,7 @@
                     $('#id_buku').val(book_id);
                     $('#title').val(data.title);
                     $('#author').val(data.author);
-                    $('#editBtn').attr('data-id' , data.id);
+                    $('#editBtn').attr('data-id', data.id);
                 })
             });
 
@@ -201,6 +201,22 @@
                 });
             });
 
+            $('body').on('click', '.hapus', function () {
+                var book_id = $(this).data("id");
+                $confirm = confirm("Data akan dihapus !");
+                if ($confirm == true) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{ url('/buku') }}" + '/' + book_id,
+                        success: function (data) {
+                            table.draw();
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+                    });
+                }
+            });
         });
 
     </script>

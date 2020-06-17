@@ -21,7 +21,7 @@ class Bukucontroller extends Controller
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
                            $btn = '<button class="btn btn-primary btn-sm edit" data-id="'.$row->id.'" data-target="#edit" data-toggle="modal">Edit</button>';
-                           $btn = $btn.' <a href="javascript:void(0)"  data-id="'.$row->id.'" class="btn btn-danger btn-sm deleteBook">Delete</a>';
+                           $btn = $btn.'<a href="javascript:void(0)"  data-id="'.$row->id.'" class="btn btn-danger btn-sm ml-1 hapus">Delete</a>';
                             return $btn;
                     })
                     ->rawColumns(['action'])
@@ -101,6 +101,8 @@ class Bukucontroller extends Controller
      */
     public function destroy(Bukumodel $bukumodel)
     {
-        //
+        Bukumodel::destroy('id', $bukumodel->id);
+
+        return response()->json(['success'=>'Book delete successfully.']);
     }
 }

@@ -22,3 +22,4 @@ Route::get('/buku', 'Bukucontroller@index');
 Route::post('/buku', 'Bukucontroller@store');
 Route::get('/buku/{bukumodel}', 'Bukucontroller@show');
 Route::patch('/buku/{bukumodel}', 'Bukucontroller@update');
+Route::delete('/buku/{bukumodel}', 'Bukucontroller@destroy');
