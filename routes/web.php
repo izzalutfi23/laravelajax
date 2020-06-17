@@ -20,3 +20,5 @@ Route::get('/', function () {
 // Route::resource('buku', 'Bukucontroller');
 Route::get('/buku', 'Bukucontroller@index');
 Route::post('/buku', 'Bukucontroller@store');
+Route::get('/buku/{bukumodel}', 'Bukucontroller@show');
+Route::patch('/buku/{bukumodel}', 'Bukucontroller@update');

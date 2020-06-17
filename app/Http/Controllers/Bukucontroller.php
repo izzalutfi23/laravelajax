@@ -20,7 +20,7 @@ class Bukucontroller extends Controller
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
-                           $btn = '<button class="btn btn-primary btn-sm" data-id="'.$row->id.'" data-target="#edit" data-toggle="modal">Edit</button>';
+                           $btn = '<button class="btn btn-primary btn-sm edit" data-id="'.$row->id.'" data-target="#edit" data-toggle="modal">Edit</button>';
                            $btn = $btn.' <a href="javascript:void(0)"  data-id="'.$row->id.'" class="btn btn-danger btn-sm deleteBook">Delete</a>';
                             return $btn;
                     })
@@ -62,7 +62,7 @@ class Bukucontroller extends Controller
      */
     public function show(Bukumodel $bukumodel)
     {
-        //
+        return $bukumodel;
     }
 
     /**
@@ -85,7 +85,12 @@ class Bukucontroller extends Controller
      */
     public function update(Request $request, Bukumodel $bukumodel)
     {
-        //
+        Bukumodel::where('id', $bukumodel->id)->update([
+            'title' => $request->title,
+            'author' => $request->author
+        ]);
+
+        return response()->json(['success'=>'Book edit successfully.']);
     }
 
     /**

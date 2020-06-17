@@ -8,8 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -72,17 +71,26 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Buku</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        <form id="formedit">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Judul</label>
+                                <input type="hidden" name="id" id="id_buku">
+                                <input type="text" id="title" class="form-control" name="title">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Autor</label>
+                                <input type="text" id="author" class="form-control" name="author">
+                            </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="submit" id="editBtn" class="btn btn-primary">Edit</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -100,10 +108,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
     <script type="text/javascript">
         $(function () {
@@ -140,7 +148,6 @@
 
             $('#saveBtn').click(function (e) {
                 e.preventDefault();
-                $(this).html('Save');
 
                 $.ajax({
                     data: $('#formtambah').serialize(),
@@ -150,13 +157,50 @@
                     success: function (data) {
                         table.draw();
                         $('#formtambah').trigger("reset");
-                        $("[data-dismiss=modal]").trigger({type: "click"});
+                        $("[data-dismiss=modal]").trigger({
+                            type: "click"
+                        });
                     },
                     error: function (data) {
                         console.log('Error:', data);
                         $('#saveBtn').html('Save Changes');
                     }
                 });
+            });
+
+            $('body').on('click', '.edit', function () {
+                var book_id = $(this).data('id');
+                $.get("{{ url('/buku') }}" + '/' + book_id, function (data) {
+                    $('#id_buku').val(book_id);
+                    $('#title').val(data.title);
+                    $('#author').val(data.author);
+                    $('#editBtn').attr('data-id' , data.id);
+                })
+            });
+
+            $('#editBtn').click(function (e) {
+                e.preventDefault();
+                var id_buku = $('#formedit').find('input[name="id"]').val();;
+
+                // $.ajax({
+                //     data: $('#formedit').serialize(),
+                //     url: "{{ url('/buku') }}" + '/' + id_buku,
+                //     type: "PATCH",
+                //     dataType: 'json',
+                //     success: function (data) {
+                //         table.draw();
+                //         $('#formtambah').trigger("reset");
+                //         $("[data-dismiss=modal]").trigger({
+                //             type: "click"
+                //         });
+                //     },
+                //     error: function (data) {
+                //         console.log('Error:', data);
+                //         $('#saveBtn').html('Save Changes');
+                //     }
+                // });
+
+                window.alert(id_buku);
             });
 
         });
